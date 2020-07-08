@@ -5,9 +5,14 @@ from uuid import uuid1
 
 """Local api package."""
 
+UNAUTHORIZED = {'status_code': 401, 'msg': 'Unknown user, please use Bearer token'}
 
-def check_valid_uuid():
-    pass
+
+def check_uuid(token):
+    q = Client.query.get(token)
+    if q is None:
+        return False, UNAUTHORIZED
+    return True, None
 
 
 def register_client():
