@@ -1,5 +1,5 @@
 from micro.database import db
-
+from datetime import datetime
 """Microservice models definition"""
 
 
@@ -17,6 +17,7 @@ class Offer(db.Model):
     price = db.Column(db.Integer, nullable=False)
     items_in_stock = db.Column(db.Integer, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    timestamp = db.Column(db.DateTime)
 
 
 class Client(db.Model):

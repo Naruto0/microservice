@@ -1,4 +1,4 @@
-from flask import request, abort, make_response, jsonify
+from flask import request, abort, make_response, jsonify, render_template
 
 from micro import app
 from micro.offers_api import get_offers
@@ -18,9 +18,9 @@ def process_response(res):
     return make_response(jsonify(res), status_code)
 
 
-@app.route(f'{ROUTE}/')
+@app.route(f'{ROUTE}/', methods=['GET'])
 def home():
-    return 'Hello app'
+    return render_template('index.html')
 
 
 @app.route(f'{ROUTE}/auth', methods=['POST'])

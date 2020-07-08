@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>microservice</title>
+</head>
+<body>
+<div>
+    <h1>microservice</h1>
+        <p>See below list for available actions.</p>
+        <h2><em>GET</em> /auth</h2>
+        <p>Plain request, returns authentication code <code>'Bearer'</code></p>
+    <h3>Response:</h3>
+    <code>{"Bearer": &lt;token&gt;}</code>
+        <h2><em>POST</em> /add</h2>
+        <ul>
+            <li>requires Header: Bearer token</li>
+            <li>below data should be in body of request</li>
+        </ul>
+        <code>{'name': &lt;product name&gt;, 'description': &lt;text&gt;}</code>
+        <h3>Response:</h3>
+        <ul>
+            <li>Original response from <em>offers api</em> if successful (the product id)</li>
+            <li>Error message if product (based on unique name, or description) exists in database.</li>
+        </ul>
+        <h2><em>PUT</em> /update</h2>
+         <ul>
+            <li>requires Header: Bearer token</li>
+            <li>below data (now with product id) should be in body of request</li>
+         </ul>
+             <code>
+                 {"id": 2,"name": "Brýle Coochie","description": "Plyšové brýle"}
+             </code>
+             <h3>Returns</h3><p>Full listing of changed item</p>
+             <code>{"item": {"description": "Plyšové brýle","id": 2,
+            "name": "Brýle Coochie"} }</code>
+        </ul>
+        <h2><em>DELETE</em> /&lt;id&gt;/delete</h2>
+        <ul>
+            <li>Again, authentication Header with Bearer token is required</li>
+            <li>no json data required as <em>id</em> already provided</li>
+        </ul>
+    <h3>Response:</h3>
+    <code>{"item":
+        { "description": "Mučící nástroj inspirovaný dětským hlavolamem.", "id": 1, "name": "Roubíkova kostka"},
+        "msg": "Product id: 1 deleted."}</code>
+    </div>
+</body>
+</html>
