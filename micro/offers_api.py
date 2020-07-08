@@ -5,6 +5,8 @@ from micro.settings import CONFIG
 API_URL = CONFIG.API_URL
 headers = {'Bearer': CONFIG.OFFERS_TOKEN}
 
+"""Remote API package."""
+
 
 def get_offers(item):
     action = f'{API_URL}/products/{item}/offers'

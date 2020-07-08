@@ -1,6 +1,20 @@
-from micro.models import Product, Offer
+from micro.models import Product, Client
 from micro.database import db
 from micro.offers_api import *
+from uuid import uuid1
+
+"""Local api package."""
+
+
+def check_valid_uuid():
+    pass
+
+
+def register_client():
+    c = Client(id = uuid1().hex)
+    db.session.add(c)
+    db.session.commit()
+    return {'status_code': 201, 'Bearer': c.id}
 
 
 def add_product(payload):
@@ -29,15 +43,23 @@ def update_product(payload):
         p.name = payload['name']
         p.description = payload['description']
         db.session.commit()
-        return {'status_code': 201, 'modified': {'id': p.id, 'name': p.name, 'description': p.description}}
+        return {'status_code': 201, 'item': {'id': p.id, 'name': p.name, 'description': p.description}}
     else:
         return {'status_code': 404, 'msg': f'Product with id {payload["id"]} does not exist.'}
 
 
 def delete_product(id):
-    try:
-        q = Product.query.get(id)
-        db.session.delete(q)
-        db.session.commit()
-    except Exception as e:
-        return {'code': 'ERROR', 'msg': e}
+    q = Product.query.get(id)
+    if q is None:
+        return {'status_code': 404,  'msg': f'Cannot delete product {id} that does not exist.'}
+    db.session.delete(q)
+    db.session.commit()
+    return {
+        'status_code': 200,
+        'msg': f'Product id: {q.id} deleted.',
+        'item': {
+            'id': q.id,
+            'name': q.name,
+            'description': q.description
+         }
+    }

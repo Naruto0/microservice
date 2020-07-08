@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-'''Package to load environment variables to application config variable based on `VARIABLES` list'''
+"""Package to load environment variables to application config variable based on `VARIABLES` list"""
 
-ENV = load_dotenv(os.path.join(os.getcwd(), '.env'))
+
+load_dotenv(os.path.join(os.getcwd(), '.env'))
 
 VARIABLES = [
     'DATABASE',
