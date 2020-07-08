@@ -14,9 +14,10 @@ def get_offers(item):
 
 def register_item(id, name, description):
     action = f'{API_URL}/products/register'
-    body = {'id': id,
+    data = {
+            'id': id,
             'name': name,
-            'descritpion': description
+            'description': description
             }
-    request = requests.post(action, headers=headers, body=body)
+    request = requests.post(action, headers=headers, data=data)
     return request
