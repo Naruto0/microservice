@@ -3,6 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>microservice</title>
+    <style type="css">
+        body {font: monospace;}
+    </style>
 </head>
 <body>
 <div>
@@ -31,10 +34,13 @@
              <code>
                  {"id": 2,"name": "Brýle Coochie","description": "Plyšové brýle"}
              </code>
-             <h3>Returns</h3><p>Full listing of changed item</p>
-             <code>{"item": {"description": "Plyšové brýle","id": 2,
-            "name": "Brýle Coochie"} }</code>
-        </ul>
+             <h3>Returns</h3>
+                <ul>
+                    <li>Full listing of changed item
+                     <code>{"item": {"description": "Plyšové brýle","id": 2,
+                    "name": "Brýle Coochie"} }</code></li>
+                    <li>Error message if any inconsistency in provided data (e.g. non existing product)</li>
+                </ul>
         <h2><em>DELETE</em> /&lt;id&gt;/delete</h2>
         <ul>
             <li>Again, authentication Header with Bearer token is required</li>
