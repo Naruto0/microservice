@@ -12,7 +12,7 @@ def check_uuid(token):
     """Checks if received `Bearer` is in database"""
     q = Client.query.get(token)
     if q is None:
-        return False, UNAUTHORIZED
+        return False, {"status_code": 401, "msg": "Unauthorized acces"}
     return True, None
 
 

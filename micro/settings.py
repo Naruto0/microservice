@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 
 """Package to load environment variables to application config variable using `VARIABLES` list"""
 
-path = os.path.join(os.getcwd(), '.env')
 load_dotenv(os.path.join(os.getcwd(), '.env'))
 
 VARIABLES = [

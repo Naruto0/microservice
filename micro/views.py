@@ -1,7 +1,7 @@
 from flask import request, make_response, jsonify, render_template
 
 from micro import app
-from micro.api import add_product, update_product, delete_product, register_client,check_uuid
+from micro.api import add_product, update_product, delete_product, register_client, check_uuid
 
 ROUTE = '/micro/api/v1'
 """Routes for local API"""
