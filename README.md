@@ -10,6 +10,14 @@ Classic __python-flask__ application setup
 
 change `ENVVARS` to fit your system (you may take inspiration from `.env_example`)
 
+Create database using _interactive Python shell_ with `SQLAlchemy` method `create_all()`
+
+```
+>>> from micro.database import db
+>>> db.create_all()
+```
+
+Run the application
 
 `$ flask run`
 

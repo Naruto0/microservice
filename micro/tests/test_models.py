@@ -21,12 +21,12 @@ def database_fixture():
     os.unlink(app.config['DATABASE'])
 
 
-def test_model_fit():
-    p = Product(id=1, name="Qoza 3000- křovinořez", description="Super sekajda na trávu")
+def test_model_fit(database_fixture):
+    p = Product(name="Qoza 3000- křovinořez", description="Super sekajda na trávu")
     db.session.add(p)
     db.session.commit()
 
 
-def test_database_worx():
-    prod = Product.query.get(1)
-    assert prod.description == "Super sekajda na trávu"
+def test_database(database_fixture):
+    q = Product.query.all()
+    assert len(q) == 1

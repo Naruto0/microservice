@@ -3,15 +3,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>microservice</title>
-    <style type="css">
-        body {font: monospace;}
+    <style>
+        .content {font-family: "Lucida Console", Courier, monospace;}
     </style>
 </head>
 <body>
-<div>
+<div class="content">
     <h1>microservice</h1>
         <p>See below list for available actions.</p>
-        <h2><em>GET</em> /auth</h2>
+        <h2><em>POST</em> /auth</h2>
         <p>Plain request, returns authentication code <code>'Bearer'</code></p>
     <h3>Response:</h3>
     <code>{"Bearer": &lt;token&gt;}</code>
@@ -20,7 +20,7 @@
             <li>requires Header: Bearer token</li>
             <li>below data should be in body of request</li>
         </ul>
-        <code>{'name': &lt;product name&gt;, 'description': &lt;text&gt;}</code>
+        <code>{"name": &lt;product name&gt;, "description": &lt;text&gt;}</code>
         <h3>Response:</h3>
         <ul>
             <li>Original response from <em>offers api</em> if successful (the product id)</li>

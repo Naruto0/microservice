@@ -3,12 +3,13 @@ from micro.database import db
 from micro.offers_api import *
 from uuid import uuid1
 
-"""Local api package."""
+"""Local application layer package."""
 
 UNAUTHORIZED = {'status_code': 401, 'msg': 'Unknown user, please use Bearer token'}
 
 
 def check_uuid(token):
+    """Checks if received `Bearer` is in database"""
     q = Client.query.get(token)
     if q is None:
         return False, UNAUTHORIZED
@@ -16,13 +17,15 @@ def check_uuid(token):
 
 
 def register_client():
-    c = Client(id = uuid1().hex)
+    """Simply generates and saves an ID responses it back"""
+    c = Client(id=uuid1().hex)
     db.session.add(c)
     db.session.commit()
     return {'status_code': 201, 'Bearer': c.id}
 
 
 def add_product(payload):
+    """Save product in database, on success hand it out to remote API"""
     try:
         p = Product(**payload)
     except Exception as e:
@@ -43,6 +46,7 @@ def add_product(payload):
 
 
 def update_product(payload):
+    """Update product `name`/`description`"""
     p = Product.query.get(payload['id'])
     if p is not None:
         p.name = payload['name']
@@ -54,6 +58,7 @@ def update_product(payload):
 
 
 def delete_product(id):
+    """Delete product from database"""
     q = Product.query.get(id)
     if q is None:
         return {'status_code': 404,  'msg': f'Cannot delete product {id} that does not exist.'}

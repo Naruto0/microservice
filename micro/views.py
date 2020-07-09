@@ -1,7 +1,6 @@
-from flask import request, abort, make_response, jsonify, render_template
+from flask import request, make_response, jsonify, render_template
 
 from micro import app
-from micro.offers_api import get_offers
 from micro.api import add_product, update_product, delete_product, register_client,check_uuid
 
 ROUTE = '/micro/api/v1'
@@ -9,10 +8,12 @@ ROUTE = '/micro/api/v1'
 
 
 def authorized_access(response):
+    """Check if access is authorized"""
     return check_uuid(response.headers.get('Bearer'))
 
 
 def process_response(res):
+    """Helper function to refactor code"""
     status_code = res['status_code']
     del res['status_code']
     return make_response(jsonify(res), status_code)
@@ -20,22 +21,20 @@ def process_response(res):
 
 @app.route(f'{ROUTE}/', methods=['GET'])
 def home():
+    """Home page"""
     return render_template('index.html')
 
 
 @app.route(f'{ROUTE}/auth', methods=['POST'])
 def get_authorization():
+    """API endpoint to get authentication code"""
     r = register_client()
     return process_response(r)
 
 
-@app.route(f'{ROUTE}/<id>/offers')
-def ll(id):
-    return '%s' % get_offers(id).json()
-
-
 @app.route(f'{ROUTE}/add', methods=['POST'])
 def add():
+    """API endpoint to add Product"""
     access, response = authorized_access(request)
     if access:
         data = request.get_json()
@@ -47,6 +46,7 @@ def add():
 
 @app.route(f'{ROUTE}/update', methods=['PUT'])
 def update():
+    """API endpoint to update Product"""
     access, response = authorized_access(request)
     if access:
         data = request.get_json()
@@ -58,6 +58,7 @@ def update():
 
 @app.route(f'{ROUTE}/<id>/delete', methods=['DELETE'])
 def delete(id):
+    """API endpoint to delete Product"""
     access, response = authorized_access(request)
     if access:
         r = delete_product(id)
