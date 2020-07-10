@@ -1,2 +1,2 @@
 web: uwsgi wsgi.ini
-release: flask db init
+release: flask db upgrade
