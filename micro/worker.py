@@ -13,5 +13,5 @@ def process_offers(time=None):
     Offer.commit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     process_offers()

@@ -1,0 +1,19 @@
+[flake8]
+exclude=
+    .pytest_cache
+    .env,
+    .venv-microservice,
+    __pychache__.py,
+    env.py,
+    .gitignore,
+    catalog.db,
+    index.html,
+    .env_example,
+    .wsgi.ini,
+    backend.log,
+    LICENSE,
+    Procfile,
+    README.md,
+    requirements.txt,
+    wsi.ini,
+    .flake8
