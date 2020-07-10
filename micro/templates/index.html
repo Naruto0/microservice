@@ -13,8 +13,8 @@
         <p>See below list for available actions.</p>
         <h2><em>POST</em> /auth</h2>
         <p>Plain request, returns authentication code <code>'Bearer'</code></p>
-    <h3>Response:</h3>
-    <code>{"Bearer": &lt;token&gt;}</code>
+        <h3>Response:</h3>
+        <code>{"Bearer": &lt;token&gt;}</code>
         <h2><em>POST</em> /add</h2>
         <ul>
             <li>requires Header: Bearer token</li>
@@ -42,14 +42,60 @@
                     <li>Error message if any inconsistency in provided data (e.g. non existing product)</li>
                 </ul>
         <h2><em>DELETE</em> /&lt;id&gt;/delete</h2>
-        <ul>
-            <li>Again, authentication Header with Bearer token is required</li>
-            <li>no json data required as <em>id</em> already provided</li>
-        </ul>
+            <ul>
+                <li>Again, authentication Header with Bearer token is required</li>
+                <li>no json data required as <em>id</em> already provided</li>
+            </ul>
+        <h3>Response:</h3>
+        <code>{"item":
+            { "description": "Mučící nástroj inspirovaný dětským hlavolamem.", "id": 1, "name": "Roubíkova kostka"},
+            "msg": "Product id: 1 deleted."}</code>
+    <h2><em>GET</em> /products</h2>
+    <p>Requires authentication Bearer, lets you list all products</p>
     <h3>Response:</h3>
-    <code>{"item":
-        { "description": "Mučící nástroj inspirovaný dětským hlavolamem.", "id": 1, "name": "Roubíkova kostka"},
-        "msg": "Product id: 1 deleted."}</code>
-    </div>
+    <code>
+        {
+    "products": [
+        {
+            "description": "Klasická nenapařovací žehlička",
+            "id": 1,
+            "name": "Žehlička Teta"
+        },
+        {
+            "description": "Pletená plyšová kočička.",
+            "id": 2,
+            "name": "Knitting Kitty"
+        }
+    ]
+}  </code>
+        <h2><em>GET</em> /&lt;product_id&gt;/detail</h2>
+        <p>Requires authentication Bearer, lists all offers for particular product</p>
+        <h3>Response:</h3>
+        <code>
+            {
+            "offers": [
+        {
+            "id": 1,
+            "items_in_stock": 0,
+            "price": 1203,
+            "timestamp": "Fri, 10 Jul 2020 08:37:51 GMT",
+            "vendor_id": 16962
+        },
+        {
+            "id": 2,
+            "items_in_stock": 15,
+            "price": 1206,
+            "timestamp": "Fri, 10 Jul 2020 08:37:51 GMT",
+            "vendor_id": 16959
+        }]
+            "product": {
+        "description": "Klasická nenapařovací žehlička",
+        "id": 1,
+        "name": "Žehlička Teta"
+    }
+            }
+        </code>
+        </div>
+
 </body>
 </html>
