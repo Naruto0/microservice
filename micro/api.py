@@ -8,6 +8,24 @@ from uuid import uuid1
 UNAUTHORIZED = {'status_code': 401, 'msg': 'Unknown user, please use Bearer token'}
 
 
+def serialize_product(prod):
+    return {
+        'id': prod.id,
+        'name': prod.name,
+        'description': prod.description,
+    }
+
+
+def serialize_offer(of):
+    return {
+        'id': of.id,
+        'vendor_id': of.vendor_id,
+        'price': of.price,
+        'items_in_stock': of.items_in_stock,
+        'timestamp': of.timestamp
+    }
+
+
 def check_uuid(token):
     """Checks if received `Bearer` is in database"""
     q = Client.query.get(token)
@@ -48,13 +66,12 @@ def add_product(payload):
 def update_product(payload):
     """Update product `name`/`description`"""
     p = Product.query.get(payload['id'])
-    if p is not None:
-        p.name = payload['name']
-        p.description = payload['description']
-        db.session.commit()
-        return {'status_code': 201, 'item': {'id': p.id, 'name': p.name, 'description': p.description}}
-    else:
+    if p is None:
         return {'status_code': 404, 'msg': f'Product with id {payload["id"]} does not exist.'}
+    p.name = payload['name']
+    p.description = payload['description']
+    db.session.commit()
+    return {'status_code': 201, 'item': {'id': p.id, 'name': p.name, 'description': p.description}}
 
 
 def delete_product(id):
@@ -73,3 +90,24 @@ def delete_product(id):
             'description': q.description
          }
     }
+
+
+def query_products():
+    q = Product.query.all()
+    payload = []
+    if q is None:
+        return {'status_code': 404, 'msg': 'No product registred yet.'}
+    for product in q:
+        item = serialize_product(product)
+        payload.append(item)
+    return {'status_code': 200, 'products': payload}
+
+
+def query_detail(product_id):
+    p = Product.query.get(product_id)
+    if p is None:
+        return {'status_code': 404, 'msg': f'Product with id {product_id} does not exist.'}
+    children = []
+    for child in p.offers:
+        children.append(serialize_offer(child))
+    return {'status_code': 200, 'product': serialize_product(p), 'offers': children}

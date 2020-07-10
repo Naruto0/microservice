@@ -1,7 +1,8 @@
 from flask import request, make_response, jsonify, render_template
 
 from micro import app
-from micro.api import add_product, update_product, delete_product, register_client, check_uuid
+from micro.api import add_product, update_product, delete_product, register_client, check_uuid, query_products, \
+    query_detail
 
 ROUTE = '/micro/api/v1'
 """Routes for local API"""
@@ -62,6 +63,26 @@ def delete(id):
     access, response = authorized_access(request)
     if access:
         r = delete_product(id)
+    else:
+        r = response
+    return process_response(r)
+
+
+@app.route(f'{ROUTE}/products', methods=['GET'])
+def list_products():
+    acces, response = authorized_access(request)
+    if acces:
+        r = query_products()
+    else:
+        r = response
+    return process_response(r)
+
+
+@app.route(f'{ROUTE}/<id>/detail', methods=['GET'])
+def get_product_detail(id):
+    access, response = authorized_access(request)
+    if access:
+        r = query_detail(id)
     else:
         r = response
     return process_response(r)

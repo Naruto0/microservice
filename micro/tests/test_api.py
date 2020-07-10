@@ -1,11 +1,12 @@
 import pytest
 import json
 import responses
+from datetime import datetime as dt
 
 from micro import app
 from micro.database import db, init_db
 from micro.views import ROUTE
-from micro.models import Product, Client
+from micro.models import Product, Client, Offer
 
 
 @pytest.fixture
@@ -115,5 +116,40 @@ def test_delete_unauthorized(client):
 
 
 def test_delete_nonexistent(client, auth):
+    """Fail to delete non-existent record"""
     r = client.delete(f'{ROUTE}/1000/delete', headers={'Bearer': auth})
     assert r.status_code == 404
+
+
+def test_query_products(client, auth):
+    """Query all registered and valid products"""
+    r = client.get(f'{ROUTE}/products', headers={'Bearer': auth})
+    assert r.status_code == 200
+
+
+def test_get_product_details(client, auth):
+    """Query product details"""
+    date = dt(2020, 8, 2)
+    o1_payload = {'id': 1, 'items_in_stock': 25, 'price': 152,
+                  'timestamp': 'Sun, 02 Aug 2020 00:00:00 GMT',
+                  'vendor_id': 16542
+                  }
+    o2_payload = {'id': 2, 'items_in_stock': 12, 'price': 200,
+                  'timestamp': 'Sun, 02 Aug 2020 00:00:00 GMT',
+                  'vendor_id': 17462
+                  }
+    o1 = Offer(
+        vendor_id=16542, price=152, items_in_stock=25,
+        product_id=1, timestamp=date
+    )
+    o2 = Offer(
+        vendor_id=17462, price=200, items_in_stock=12,
+        product_id=1, timestamp=date
+    )
+    db.session.add_all([o1, o2])
+    db.session.commit()
+    r = client.get(f'{ROUTE}/1/detail', headers={'Bearer': auth})
+    assert r.status_code == 200
+    offers = r.json['offers']
+    assert o1_payload in offers
+    assert o2_payload in offers
