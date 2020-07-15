@@ -37,13 +37,7 @@ Run the application
 
 Use _wsgi_ in deployment. There is used `wsgi.ini` with heroku on mockup server.
 
-To deploy on `Heroku`, make sure to create migrations locally, push them to remote.
-
 ```
 $ flask db init
 $ flask db migrate
 ```
-
-Application is deployed on [https://microproduct.herokuapp.com/micro/api/v1/](https://microproduct.herokuapp.com/micro/api/v1/)
-where you can also see instructions how to use the api.
-
