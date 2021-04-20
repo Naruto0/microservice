@@ -23,7 +23,7 @@ pipenv==2018.11.26
 pluggy==0.13.1
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-py==1.9.0
+py==1.10.0
 Pygments==2.6.1
 pyparsing==2.4.7
 pytest==5.4.3
@@ -62,7 +62,7 @@ pipenv==2018.11.26
 pluggy==0.13.1
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-py==1.9.0
+py==1.10.0
 Pygments==2.6.1
 pyparsing==2.4.7
 pytest==5.4.3
@@ -105,7 +105,7 @@ pipenv==2018.11.26
 pluggy==0.13.1
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-py==1.9.0
+py==1.10.0
 Pygments==2.6.1
 pyparsing==2.4.7
 pytest==5.4.3
@@ -149,7 +149,7 @@ pluggy==0.13.1
 prompt-toolkit==3.0.5
 psycopg2-binary==2.8.5
 ptyprocess==0.6.0
-py==1.9.0
+py==1.10.0
 Pygments==2.6.1
 pyparsing==2.4.7
 pytest==5.4.3
@@ -196,7 +196,7 @@ pluggy==0.13.1
 prompt-toolkit==3.0.5
 psycopg2-binary==2.8.5
 ptyprocess==0.6.0
-py==1.9.0
+py==1.10.0
 Pygments==2.6.1
 pyparsing==2.4.7
 pytest==5.4.3
